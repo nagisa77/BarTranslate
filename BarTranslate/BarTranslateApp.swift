@@ -104,10 +104,91 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       if self.popover.isShown {
         self.popover.performClose(sender)
       } else {
+        if sender == nil {
+          simulateCommandC();
+        }
         self.popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
+        simulateCommandA();
+        simulateCommandV();
       }
     }
   }
   
+  func simulateCommandC() {
+      let source = CGEventSource(stateID: .hidSystemState)
+
+      // 创建Command按下事件
+      let commandDown = CGEvent(keyboardEventSource: source, virtualKey: 0x37, keyDown: true)
+      commandDown?.flags = .maskCommand
+
+      // 创建C按键按下事件
+      let cKeyDown = CGEvent(keyboardEventSource: source, virtualKey: 0x08, keyDown: true)
+      cKeyDown?.flags = .maskCommand
+
+      // 创建C按键释放事件
+      let cKeyUp = CGEvent(keyboardEventSource: source, virtualKey: 0x08, keyDown: false)
+      cKeyUp?.flags = .maskCommand
+
+      // 创建Command释放事件
+      let commandUp = CGEvent(keyboardEventSource: source, virtualKey: 0x37, keyDown: false)
+
+      // 发送事件
+      commandDown?.post(tap: .cghidEventTap)
+      cKeyDown?.post(tap: .cghidEventTap)
+      cKeyUp?.post(tap: .cghidEventTap)
+      commandUp?.post(tap: .cghidEventTap)
+  }
+
+  
+  func simulateCommandA() {
+      let source = CGEventSource(stateID: .hidSystemState)
+
+      // 创建Command按下事件
+      let commandDown = CGEvent(keyboardEventSource: source, virtualKey: 0x37, keyDown: true)
+      commandDown?.flags = .maskCommand
+
+      // 创建A按键按下事件
+      let aKeyDown = CGEvent(keyboardEventSource: source, virtualKey: 0x00, keyDown: true)
+      aKeyDown?.flags = .maskCommand
+
+      // 创建A按键释放事件
+      let aKeyUp = CGEvent(keyboardEventSource: source, virtualKey: 0x00, keyDown: false)
+      aKeyUp?.flags = .maskCommand
+
+      // 创建Command释放事件
+      let commandUp = CGEvent(keyboardEventSource: source, virtualKey: 0x37, keyDown: false)
+
+      // 发送事件
+      commandDown?.post(tap: .cghidEventTap)
+      aKeyDown?.post(tap: .cghidEventTap)
+      aKeyUp?.post(tap: .cghidEventTap)
+      commandUp?.post(tap: .cghidEventTap)
+  }
+  
+  func simulateCommandV() {
+      let source = CGEventSource(stateID: .hidSystemState)
+    
+      // 创建Command按下事件
+      let commandDown = CGEvent(keyboardEventSource: source, virtualKey: 0x37, keyDown: true)
+      commandDown?.flags = .maskCommand
+
+      // 创建V按键按下事件
+      let vKeyDown = CGEvent(keyboardEventSource: source, virtualKey: 0x09, keyDown: true)
+      vKeyDown?.flags = .maskCommand
+
+      // 创建V按键释放事件
+      let vKeyUp = CGEvent(keyboardEventSource: source, virtualKey: 0x09, keyDown: false)
+      vKeyUp?.flags = .maskCommand
+
+      // 创建Command释放事件
+      let commandUp = CGEvent(keyboardEventSource: source, virtualKey: 0x37, keyDown: false)
+      commandUp?.flags = .maskCommand
+
+      // 发送事件
+      commandDown?.post(tap: .cghidEventTap)
+      vKeyDown?.post(tap: .cghidEventTap)
+      vKeyUp?.post(tap: .cghidEventTap)
+      commandUp?.post(tap: .cghidEventTap)
+  }
 }
 
